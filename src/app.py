@@ -1,8 +1,15 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config.config import Config
+from src.api.places_api import places_api
+from dotenv import load_dotenv
+import os
 
+load_dotenv()  # Load variables from .env file
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 app = Flask(__name__)
+
+app.register_blueprint(place_api, url_prefix='/api')
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 
