@@ -1,1 +1,1 @@
-# AccessAbleMap
+Repository for places and reviews microservice
