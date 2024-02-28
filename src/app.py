@@ -63,7 +63,13 @@ def saved_places():
 if __name__ == '__main__':
     app.run(debug=True)
 
-
+'''
+add post and get reviews with place id
+add review to database: user, place id, review, rating
+get user reviews + get place reviews
+ask chatgpt to write reviews in query form
+places: return latitude and longitude for all pins and place ID to get info.
+place info: name, addreess, picture{s), reviews, link to website, phone number, email, etc. maybe link to google maps'''
 '''
 app = Flask(__name__)
 app.config.from_object(Config)
