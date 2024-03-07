@@ -52,4 +52,4 @@ jobs:
           DB_PORT: ${{ secrets.DB_PORT }}        
           name: accessable-maps
           location: 'Central US'
-          container-ports: 5001
+          ports: 5001
