@@ -66,8 +66,8 @@ def lookup_places():
 
             # Fetch reviews from the database
             place['reviews'] = get_reviews_for_place(place_id)
-
-        return jsonify(places)
+            response = jsonify(places)
+        return response.headers.add('Access-Control-Allow-Origin', 'http://127.0.0.1:5000'), place_search_response.status_code
     else:
         return jsonify({'error': 'Failed to fetch places'}), place_search_response.status_code
     
