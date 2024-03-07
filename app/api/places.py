@@ -57,7 +57,7 @@ def lookup_places():
             # Fetch place details
             detail_params = {
                 'place_id': place_id,
-                'fields': 'name,formatted_address,opening_hours,photos,website,formatted_phone_number,wheelchair_accessible_entrance',
+                'fields': 'name,formatted_address,opening_hours,photo_reference,website,formatted_phone_number,wheelchair_accessible_entrance',
                 'key': GOOGLE_API_KEY
             }
             detail_response = requests.get(DETAILS_API_URL, params=detail_params)
