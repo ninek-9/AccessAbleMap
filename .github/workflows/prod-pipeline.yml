@@ -36,12 +36,19 @@ jobs:
       - name: 'Deploy to Azure Container Instances'
         uses: 'azure/aci-deploy@v1'
         with:
-          resource-group: accessable-maps
-          dns-name-label: accessable-maps
+          resource-group: sse-lab
+          dns-name-label: accessable-maps-places
           image: ghcr.io/ninek-9/accessable-maps-places:prod
           registry-login-server: ghcr.io
           registry-username: ninek-9
           registry-password: ${{ secrets.GHCR_TOKEN }}
-          secure-environment-variables: GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
+          secure-environment-variables: 
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}        
           name: accessable-maps
-          location: 'east us'
+          location: 'Central US'
