@@ -18,18 +18,19 @@ def get_db_connection():
     )
     return conn
 
-# @reviews_bp.route('/reviews/places_id/<place_id>', methods=['GET'])
-# def get_reviews(place_id):
-#     conn = get_db_connection()
-#     cursor = conn.cursor(cursor_factory=RealDictCursor)
-#     cursor.execute('SELECT * FROM reviews WHERE place_id = %s', (place_id,))
-#     reviews = cursor.fetchall()
-#     cursor.close()
-#     conn.close()
-#     return jsonify(reviews)
+@reviews_bp.route('/reviews/place_id', methods=['GET'])
+def get_place_reviews():
+    place_id = request.args.get('place_id')
+    conn = get_db_connection()
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor.execute('SELECT * FROM reviews WHERE place_id = %s', (place_id,))
+    reviews = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return jsonify(reviews)
 
 @reviews_bp.route('/reviews/user', methods=['GET'])
-def get_reviews():
+def get_user_reviews():
     user_email = request.args.get('user_email')
     conn = get_db_connection()
     cursor = conn.cursor(cursor_factory=RealDictCursor)
