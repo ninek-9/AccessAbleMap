@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 # Initialize Blueprint
 reviews_bp = Blueprint('reviews', __name__)
-CORS(reviews_bp) 
+CORS(reviews_bp, origins=['http://127.0.0.1:5000']) 
 
 def get_db_connection():
     conn = psycopg2.connect(
