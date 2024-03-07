@@ -20,5 +20,5 @@ EXPOSE 80
 ENV NAME AccessAbleMaps
 
 # Run run.py when the container launches
-CMD ["python", "run.py"]
+CMD ["python", "run.py", "--host=0.0.0.0", "--port=80"]
 
