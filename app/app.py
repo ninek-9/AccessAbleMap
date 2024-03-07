@@ -1,3 +1,65 @@
+'''from flask import Blueprint, request, jsonify, current_app
+import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Initialize Blueprint
+places_bp = Blueprint('places', __name__)
+
+GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
+PLACES_API_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+DETAILS_API_URL = "https://maps.googleapis.com/maps/api/place/details/json"
+
+@places_bp.route('/lookup_places', methods=['GET'])
+def lookup_places():
+    input_text = request.args.get('input')
+    location = request.args.get('location')
+    if not input_text:
+        return jsonify({'error': 'Missing input parameter'}), 400
+
+    # url = PLACES_API_URL + '?query=' + input_text + '&location=' + location + '&radius=15000' + '&key=' + GOOGLE_MAPS_API_KEY
+    params = {
+        'query': input_text,
+        #'inputtype': 'textquery',
+        #'fields': 'name,formatted_address,geometry,place_id',
+        'location': location,
+        'radius': '15000',
+        'key': GOOGLE_MAPS_API_KEY
+    }
+    # print(url)
+    response = requests.get(PLACES_API_URL, params=params)
+    # response = requests.get(url)
+    # print(response.status_code)
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return jsonify({'error': 'Failed to fetch places'}), response.status_code
+
+
+@places_bp('/place_details', methods=['GET'])
+def get_place_details():
+    place_id = request.args.get('place_id')
+    if not place_id:
+        return jsonify({'error': 'Missing place_id parameter'}), 400
+
+    details_url = "https://maps.googleapis.com/maps/api/place/details/json"
+    params = {
+        'place_id': place_id,
+        'fields': 'name,address_component,formatted_address,photo,review,website,formatted_phone_number',
+        'key': GOOGLE_MAPS_API_KEY
+    }
+    response = requests.get(details_url, params=params)
+    if response.status_code == 200:
+        return jsonify(response.json()['result'])
+    else:
+        return jsonify({'error': 'Failed to fetch place details'}), response.status_code
+'''
+
+
+
 '''from flask import Flask
 from api.places import places_bp
 from api.reviews import reviews_bp

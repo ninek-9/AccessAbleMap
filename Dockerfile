@@ -4,11 +4,14 @@ FROM python:3.9-slim
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY ./app /app
+# Copy the Flask application folder into the container at /app
+COPY app/ ./app/
+
+# Copy requirements.txt and run.py into the container at /app
+COPY requirements.txt run.py ./
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
@@ -16,6 +19,6 @@ EXPOSE 5000
 # Define environment variable
 ENV NAME AccessAbleMaps
 
-# Run app.py when the container launches
+# Run run.py when the container launches
 CMD ["python", "run.py"]
 

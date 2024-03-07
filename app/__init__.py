@@ -4,7 +4,7 @@ from app.api.reviews import reviews_bp
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('app.config.config.DevelopmentConfig')
+    app.config.from_object('app.config.config.ProductionConfig')
 
     app.register_blueprint(places_bp, url_prefix='/api')
     app.register_blueprint(reviews_bp, url_prefix='/api')

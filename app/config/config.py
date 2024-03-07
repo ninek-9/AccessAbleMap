@@ -2,7 +2,7 @@ import os
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'default_secret_key')
-    GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
+    GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 
 class DevelopmentConfig(Config):
     DEBUG = True
