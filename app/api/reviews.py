@@ -2,9 +2,11 @@ from flask import Blueprint, request, jsonify
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
+from flask_cors import CORS
 
 # Initialize Blueprint
 reviews_bp = Blueprint('reviews', __name__)
+CORS(reviews_bp) 
 
 def get_db_connection():
     conn = psycopg2.connect(
