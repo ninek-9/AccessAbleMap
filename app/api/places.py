@@ -11,6 +11,7 @@ places_bp = Blueprint('places', __name__)
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 PLACES_API_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 DETAILS_API_URL = "https://maps.googleapis.com/maps/api/place/details/json"
+PHOTO_API_URL = "https://maps.googleapis.com/maps/api/place/photo"
 
 # Function to get database connection
 def get_db_connection():
@@ -57,12 +58,22 @@ def lookup_places():
             # Fetch place details
             detail_params = {
                 'place_id': place_id,
-                'fields': 'name,formatted_address,opening_hours,photos,website,formatted_phone_number,wheelchair_accessible_entrance',
+                'fields': 'name,formatted_address,opening_hours,website,formatted_phone_number,wheelchair_accessible_entrance',
                 'key': GOOGLE_API_KEY
             }
             detail_response = requests.get(DETAILS_API_URL, params=detail_params)
             if detail_response.status_code == 200:
                 place['details'] = detail_response.json().get('result', {})
+                
+            # photo_params = {
+            #     'photoreference': place['photos'][0]['photo_reference'],
+            #     'key': GOOGLE_API_KEY
+            # }
+            # photo_response = requests.get(PHOTO_API_URL, params=photo_params)
+            if 'photos' in place and place['photos']:
+                photo_reference = place['photos'][0]['photo_reference']
+                photo_url = f"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={photo_reference}&key={GOOGLE_API_KEY}"
+                place['photo_url'] = photo_url
 
             # Fetch reviews from the database
             place['reviews'] = get_reviews_for_place(place_id)
