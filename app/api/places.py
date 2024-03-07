@@ -11,27 +11,7 @@ places_bp = Blueprint('places', __name__)
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 PLACES_API_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 DETAILS_API_URL = "https://maps.googleapis.com/maps/api/place/details/json"
-PHOTO_API_URL = "https://maps.googleapis.com/maps/api/place/photo"
-
-# Function to get database connection
-def get_db_connection():
-    return psycopg2.connect(
-        dbname=os.getenv('DB_NAME'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'),
-        host=os.getenv('DB_HOST'),
-        port=os.getenv('DB_PORT')
-    )
-
-# Function to get reviews from the database
-def get_reviews_for_place(place_id):
-    conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
-    cursor.execute('SELECT * FROM reviews WHERE place_id = %s', (place_id,))
-    reviews = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return reviews
+# PHOTO_API_URL = "https://maps.googleapis.com/maps/api/place/photo"
 
 @places_bp.route('/lookup_places', methods=['GET'])
 def lookup_places():
@@ -65,18 +45,12 @@ def lookup_places():
             if detail_response.status_code == 200:
                 place['details'] = detail_response.json().get('result', {})
                 
-            # photo_params = {
-            #     'photoreference': place['photos'][0]['photo_reference'],
-            #     'key': GOOGLE_API_KEY
-            # }
-            # photo_response = requests.get(PHOTO_API_URL, params=photo_params)
+                
             if 'photos' in place and place['photos']:
                 photo_reference = place['photos'][0]['photo_reference']
                 photo_url = f"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={photo_reference}&key={GOOGLE_API_KEY}"
                 place['photo_url'] = photo_url
 
-            # Fetch reviews from the database
-            place['reviews'] = get_reviews_for_place(place_id)
 
         response = jsonify(places)
         response.headers.add('Access-Control-Allow-Origin', 'http://127.0.0.1:5000')
