@@ -10,10 +10,10 @@ class TestPlacesBlueprint(unittest.TestCase):
         """Set up a Flask app for testing."""
         app = Flask(__name__)
         app.register_blueprint(places.places_bp)
-        app.config["TESTING"] = True
+        app.config['TESTING'] = True
         self.client = app.test_client()
 
-    @patch("requests.get")
+    @patch('requests.get')
     def test_lookup_places_success(self, mock_get):
         """Test the /lookup_places endpoint for successful API call."""
         # Mocking the requests.get response
@@ -29,14 +29,14 @@ class TestPlacesBlueprint(unittest.TestCase):
                         "opening_hours": {},
                         "website": "https://www.google.com",
                         "formatted_phone_number": "1234567890",
-                        "wheelchair_accessible_entrance": "yes",
-                    },
+                        "wheelchair_accessible_entrance": "yes"
+                    }
                 }
             ]
         }
 
         # Making a GET request to the endpoint
-        response = self.client.get("/lookup_places?input=Google&location=MountainView")
+        response = self.client.get('/lookup_places?input=Google&location=MountainView')
         data = json.loads(response.data)
 
         # Assertions to validate the endpoint behavior
@@ -46,7 +46,7 @@ class TestPlacesBlueprint(unittest.TestCase):
         self.assertIsInstance(data[0], dict)
         self.assertEqual(data[0]["name"], "Google")
 
-    @patch("requests.get")
+    @patch('requests.get')
     def test_lookup_places_failure(self, mock_get):
         """Test the /lookup_places endpoint for failed API call."""
         # Mocking the requests.get response to simulate an API failure
@@ -54,12 +54,12 @@ class TestPlacesBlueprint(unittest.TestCase):
         mock_response.status_code = 500
 
         # Making a GET request to the endpoint
-        response = self.client.get("/lookup_places?input=Google&location=MountainView")
+        response = self.client.get('/lookup_places?input=Google&location=MountainView')
 
         # Assertions to validate the endpoint behavior
         self.assertEqual(response.status_code, 500)
         self.assertIn("error", json.loads(response.data))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
