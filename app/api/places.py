@@ -52,7 +52,8 @@ def lookup_places():
                 place["photo_url"] = photo_url
 
         response = jsonify(places)
-        response.headers.add("Access-Control-Allow-Origin", "http://127.0.0.1:5000")
+        allowed_origins = ['http://127.0.0.1:5000', 'http://accessable-maps.eastus.azurecontainer.io']
+        response.headers.add('Access-Control-Allow-Origin', '*')
 
         return response, place_search_response.status_code
     else:
