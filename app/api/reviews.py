@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 # Initialise Blueprint
 reviews_bp = Blueprint('reviews', __name__)
-CORS(reviews_bp)
+CORS(reviews_bp, origins=['*'])
 
 
 # Connect to database
