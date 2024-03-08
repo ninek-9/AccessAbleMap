@@ -8,6 +8,7 @@ from flask_cors import CORS
 reviews_bp = Blueprint('reviews', __name__)
 CORS(reviews_bp)
 
+
 # Connect to database
 def get_db_connection():
     conn = psycopg2.connect(
@@ -18,6 +19,7 @@ def get_db_connection():
         port=os.getenv("DB_PORT"),
     )
     return conn
+
 
 # Get reviews by place_id
 @reviews_bp.route("/reviews/place_id", methods=["GET"])
@@ -31,6 +33,7 @@ def get_place_reviews():
     conn.close()
     return jsonify(reviews)
 
+
 # Get reviews by user_email
 @reviews_bp.route("/reviews/user", methods=["GET"])
 def get_user_reviews():
@@ -42,6 +45,7 @@ def get_user_reviews():
     cursor.close()
     conn.close()
     return jsonify(reviews)
+
 
 # Get all reviews
 @reviews_bp.route("/reviews", methods=["POST"])

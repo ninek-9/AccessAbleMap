@@ -10,6 +10,7 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 PLACES_API_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 DETAILS_API_URL = "https://maps.googleapis.com/maps/api/place/details/json"
 
+
 # Get place details by place_id and location
 @places_bp.route("/lookup_places", methods=["GET"])
 def lookup_places():
