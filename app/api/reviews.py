@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 # Initialise Blueprint
 reviews_bp = Blueprint('reviews', __name__)
-CORS(reviews_bp, origins=['*'])
+CORS(reviews_bp, origins=['http://accessable-maps.eastus.azurecontainer.io', 'http://localhost:5000'])
 
 
 # Connect to database
