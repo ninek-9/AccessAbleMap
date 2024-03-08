@@ -54,7 +54,7 @@ def post_review():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO reviews (user_email, place_id, review, rating, place_name) VALUES (%s, %s, %s, %s)",
+        "INSERT INTO reviews (user_email, place_id, review, rating, place_name) VALUES (%s, %s, %s, %s, %s)",
         (
             review_data["user_email"],
             review_data["place_id"],
