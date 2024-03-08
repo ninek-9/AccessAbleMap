@@ -60,8 +60,3 @@ def lookup_places():
             jsonify({"error": "Failed to fetch places"}),
             place_search_response.status_code,
         )
-
-
-# make place detail for all of them and add to the same route + link reviews to places details
-# deploy to azure
-# link reviews to users POST request + email, reviews, rating
