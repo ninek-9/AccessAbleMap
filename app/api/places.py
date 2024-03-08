@@ -1,7 +1,5 @@
 from flask import Blueprint, request, jsonify
 import requests
-import psycopg2
-from psycopg2.extras import RealDictCursor
 import os
 
 # Initialize Blueprint
@@ -52,7 +50,6 @@ def lookup_places():
                 place["photo_url"] = photo_url
 
         response = jsonify(places)
-        allowed_origins = ['http://127.0.0.1:5000', 'http://accessable-maps.eastus.azurecontainer.io']
         response.headers.add('Access-Control-Allow-Origin', '*')
 
         return response, place_search_response.status_code
