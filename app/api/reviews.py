@@ -7,7 +7,8 @@ from flask_cors import CORS
 # Initialize Blueprint
 reviews_bp = Blueprint('reviews', __name__)
 # allowed_origins = ['http://127.0.0.1:5000', 'http://accessable-maps.eastus.azurecontainer.io']
-CORS(reviews_bp) 
+CORS(reviews_bp)
+
 
 def get_db_connection():
     conn = psycopg2.connect(
@@ -50,12 +51,13 @@ def post_review():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO reviews (user_email, place_id, review, rating) VALUES (%s, %s, %s, %s)",
+        "INSERT INTO reviews (user_email, place_id, review, rating, place_name) VALUES (%s, %s, %s, %s)",
         (
             review_data["user_email"],
             review_data["place_id"],
             review_data["review"],
             review_data["rating"],
+            review_data["place_name"]
         ),
     )
     conn.commit()
