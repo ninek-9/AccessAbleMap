@@ -2,16 +2,15 @@ from flask import Blueprint, request, jsonify
 import requests
 import os
 
-# Initialize Blueprint
+# Initialise Blueprint
 places_bp = Blueprint("places", __name__)
 
 # Load environment variables
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 PLACES_API_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 DETAILS_API_URL = "https://maps.googleapis.com/maps/api/place/details/json"
-# PHOTO_API_URL = "https://maps.googleapis.com/maps/api/place/photo"
 
-
+# Get place details by place_id and location
 @places_bp.route("/lookup_places", methods=["GET"])
 def lookup_places():
     input_text = request.args.get("input")
@@ -30,11 +29,9 @@ def lookup_places():
     if place_search_response.status_code == 200:
         places = place_search_response.json().get("results", [])
 
-        # Enrich each place with details and reviews
         for place in places:
             place_id = place.get("place_id")
 
-            # Fetch place details
             detail_params = {
                 "place_id": place_id,
                 "fields": "name,formatted_address,opening_hours,website,formatted_phone_number,wheelchair_accessible_entrance",
