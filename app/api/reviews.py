@@ -47,7 +47,7 @@ def get_user_reviews():
     return jsonify(reviews)
 
 
-# Get all reviews
+# Post user review to database
 @reviews_bp.route("/reviews", methods=["POST"])
 def post_review():
     review_data = request.json
