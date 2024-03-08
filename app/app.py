@@ -1,4 +1,4 @@
-'''from flask import Blueprint, request, jsonify, current_app
+"""from flask import Blueprint, request, jsonify, current_app
 import requests
 import os
 from dotenv import load_dotenv
@@ -56,11 +56,9 @@ def get_place_details():
         return jsonify(response.json()['result'])
     else:
         return jsonify({'error': 'Failed to fetch place details'}), response.status_code
-'''
+"""
 
-
-
-'''from flask import Flask
+"""from flask import Flask
 from api.places import places_bp
 from api.reviews import reviews_bp
 
@@ -73,10 +71,10 @@ app.register_blueprint(reviews_bp, url_prefix='/api')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5001)
-    app.run(debug=True)'''
+    app.run(debug=True)"""
 
 
-'''from dotenv import load_dotenv
+"""from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 import os
 import requests
@@ -164,9 +162,9 @@ def post_review():
     return jsonify({'status': 'success'}), 201
 
 if __name__ == '__main__':
-    app.run(debug=True)'''
+    app.run(debug=True)"""
 
-'''
+"""
 from flask import Flask, jsonify, request
 # from flask_sqlalchemy import SQLAlchemy
 # from src.config.config import Config
@@ -293,4 +291,4 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True)
-'''
+"""
