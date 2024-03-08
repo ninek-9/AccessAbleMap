@@ -6,8 +6,8 @@ from flask_cors import CORS
 
 # Initialize Blueprint
 reviews_bp = Blueprint('reviews', __name__)
-allowed_origins = ['http://127.0.0.1:5000', 'http://accessable-maps.eastus.azurecontainer.io']
-CORS(reviews_bp, '*') 
+# allowed_origins = ['http://127.0.0.1:5000', 'http://accessable-maps.eastus.azurecontainer.io']
+CORS(reviews_bp) 
 
 def get_db_connection():
     conn = psycopg2.connect(
