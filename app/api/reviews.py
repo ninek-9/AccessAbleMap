@@ -4,11 +4,12 @@ from psycopg2.extras import RealDictCursor
 import os
 from flask_cors import CORS
 
-# Initialize Blueprint
+# Initialise Blueprint
 reviews_bp = Blueprint('reviews', __name__)
-# allowed_origins = ['http://127.0.0.1:5000', 'http://accessable-maps.eastus.azurecontainer.io']
-CORS(reviews_bp) 
+CORS(reviews_bp)
 
+
+# Connect to database
 def get_db_connection():
     conn = psycopg2.connect(
         dbname=os.getenv("DB_NAME"),
@@ -20,6 +21,7 @@ def get_db_connection():
     return conn
 
 
+# Get reviews by place_id
 @reviews_bp.route("/reviews/place_id", methods=["GET"])
 def get_place_reviews():
     place_id = request.args.get("place_id")
@@ -32,6 +34,7 @@ def get_place_reviews():
     return jsonify(reviews)
 
 
+# Get reviews by user_email
 @reviews_bp.route("/reviews/user", methods=["GET"])
 def get_user_reviews():
     user_email = request.args.get("user_email")
@@ -44,18 +47,20 @@ def get_user_reviews():
     return jsonify(reviews)
 
 
+# Get all reviews
 @reviews_bp.route("/reviews", methods=["POST"])
 def post_review():
     review_data = request.json
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO reviews (user_email, place_id, review, rating) VALUES (%s, %s, %s, %s)",
+        "INSERT INTO reviews (user_email, place_id, review, rating, place_name) VALUES (%s, %s, %s, %s)",
         (
             review_data["user_email"],
             review_data["place_id"],
             review_data["review"],
             review_data["rating"],
+            review_data["place_name"]
         ),
     )
     conn.commit()
