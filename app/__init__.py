@@ -7,7 +7,7 @@ from flask_cors import CORS
 def create_app():
     app = Flask(__name__)
     allowed_origins = ['http://127.0.0.1:5000', 'http://accessable-maps.eastus.azurecontainer.io']
-    CORS(app, resources={r"/api/*": {"origins": allowed_origins}})
+    CORS(app, resources={r"/api/*": {"origins": '*'}})
     app.config.from_object('app.config.config.ProductionConfig')
 
     app.register_blueprint(places_bp, url_prefix="/api")
