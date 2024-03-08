@@ -43,7 +43,7 @@ jobs:
       - name: Run tests with coverage
         run: |
           coverage run -m pytest
-          coverage report -m --fail-under=80 app/api/places.py app/api/reviews/py
+          coverage report -m --fail-under=80 app/api/places.py app/api/reviews.py
 
 
   build-and-push-image:
