@@ -4,6 +4,7 @@ from unittest.mock import patch, MagicMock
 from app import create_app
 
 
+# Creating a fixture to set up a Flask app for testing
 @pytest.fixture
 def client():
     app = create_app()
@@ -12,6 +13,7 @@ def client():
         yield client
 
 
+# Testing database connection for reviews by places
 @patch("app.api.reviews.get_db_connection")
 def test_get_place_reviews(mock_get_db_connection, client):
     mock_conn = MagicMock()
@@ -44,6 +46,7 @@ def test_get_place_reviews(mock_get_db_connection, client):
     ]
 
 
+# Testing database connection for reviews by users
 @patch("app.api.reviews.get_db_connection")
 def test_get_user_reviews(mock_get_db_connection, client):
     mock_conn = MagicMock()
@@ -76,6 +79,7 @@ def test_get_user_reviews(mock_get_db_connection, client):
     ]
 
 
+# Testing database connection for posting a review
 @patch("app.api.reviews.get_db_connection")
 def test_post_review(mock_get_db_connection, client):
     mock_conn = MagicMock()
